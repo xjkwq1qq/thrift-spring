@@ -37,7 +37,7 @@ public class ThriftServiceApplication {
 	@PostConstruct
 	public void init() throws Exception {
 		if (LOG.isDebugEnabled()) {
-			LOG.debug("É¨Ãèthrift×é¼ş");
+			LOG.debug("æ‰«æthriftç»„ä»¶");
 		}
 		Map<String, Object> thriftServices = applicationContext.getBeansWithAnnotation(ThriftService.class);
 		if (thriftServices == null) {
@@ -52,31 +52,31 @@ public class ThriftServiceApplication {
 			String name = entry.getKey();
 			Object value = entry.getValue();
 
-			// »ñÈ¡Ãû³Æ
+			// è·å–åç§°
 			ThriftService thriftService = value.getClass().getAnnotation(ThriftService.class);
 			if (StringUtils.isNoneBlank(thriftService.value())) {
 				name = thriftService.value();
 			}
-			// »ñÈ¡processor
+			// è·å–processor
 			TProcessor processor = ThriftUtil.buildProcessor(value);
-			// ×¢²á
+			// æ³¨å†Œ
 			if (LOG.isDebugEnabled()) {
-				LOG.debug("×¢²á·şÎñ×é¼ş£º" + name + "," + processor.getClass());
+				LOG.debug("æ³¨å†ŒæœåŠ¡ç»„ä»¶ï¼š" + name + "," + processor.getClass());
 			}
 			multiplexedProcessor.registerProcessor(name, processor);
 		}
 
-		// Æô¶¯
+		// å¯åŠ¨
 		if (LOG.isDebugEnabled()) {
-			LOG.debug("Æô¶¯·şÎñ£¬¼àÌı¶Ë¿Ú£º" + port);
+			LOG.debug("å¯åŠ¨æœåŠ¡ï¼Œç›‘å¬ç«¯å£ï¼š" + port);
 		}
 		server.serve();
 	}
 
 	/**
-	 * »ñÈ¡thriftÆô¶¯¶Ë¿Ú
+	 * è·å–thriftå¯åŠ¨ç«¯å£
 	 * 
-	 * @return thriftÆô¶¯¶Ë¿Ú
+	 * @return thriftå¯åŠ¨ç«¯å£
 	 * @throws IOException
 	 */
 	private int getPort() throws IOException {

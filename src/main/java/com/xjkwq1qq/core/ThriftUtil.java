@@ -12,12 +12,12 @@ public class ThriftUtil {
 	/**
 	 * 
 	 * @param service
-	 *            thriftµÄservice¶ÔÏó
-	 * @return service¶ÔÏó¹¹½¨µÄTProcessor
+	 *            thriftçš„serviceå¯¹è±¡
+	 * @return serviceå¯¹è±¡æ„å»ºçš„TProcessor
 	 * @throws Exception
 	 */
 	public static TProcessor buildProcessor(Object service) throws Exception {
-		// iface½Ó¿Ú
+		// ifaceæ¥å£
 		Class<?> ifaceClass = getThriftServiceIfaceClass(service.getClass());
 		if (ifaceClass == null) {
 			throw new ThriftRuntimeException("the iface is null");
@@ -36,11 +36,11 @@ public class ThriftUtil {
 	}
 
 	/**
-	 * »ñÈ¡¶ÔÏóµÄThriftµÄTProcessor
+	 * è·å–å¯¹è±¡çš„Thriftçš„TProcessor
 	 * 
 	 * @param value
-	 *            ×÷Îª·şÎñµÄ¶ÔÏó
-	 * @return class TProcessorµÄclass
+	 *            ä½œä¸ºæœåŠ¡çš„å¯¹è±¡
+	 * @return class TProcessorçš„class
 	 * @throws ClassNotFoundException
 	 * @throws SecurityException
 	 * @throws ThriftRuntimeException
@@ -59,7 +59,7 @@ public class ThriftUtil {
 	}
 
 	/**
-	 * »ñÈ¡¸¸ÀàµÄ×ÓÀàProcessorµÄClass
+	 * è·å–çˆ¶ç±»çš„å­ç±»Processorçš„Class
 	 * 
 	 * @param parentClass
 	 * @return
@@ -75,7 +75,7 @@ public class ThriftUtil {
 	}
 
 	/**
-	 * »ñÈ¡·şÎñÊµÏÖ¶ÔÏóµÄ¼¯³É½Ó¿Úclass
+	 * è·å–æœåŠ¡å®ç°å¯¹è±¡çš„é›†æˆæ¥å£class
 	 * 
 	 * @param serviceClass
 	 * @return
@@ -91,16 +91,16 @@ public class ThriftUtil {
 	}
 
 	/**
-	 * »ñÈ¡thriftÉú³ÉµÄ¸¸Àà¶ÔÏóclass
+	 * è·å–thriftç”Ÿæˆçš„çˆ¶ç±»å¯¹è±¡class
 	 * 
 	 * @param ifaceClass
-	 *            »ñÈ¡·şÎñÊµÏÖ¶ÔÏóµÄ¼¯³É½Ó¿Úclass
-	 * @return »ñÈ¡·şÎñÊµÏÖÀà¶ÔÓ¦µÄthriftÉú³ÉµÄ¸¸Àà¶ÔÏóclass
+	 *            è·å–æœåŠ¡å®ç°å¯¹è±¡çš„é›†æˆæ¥å£class
+	 * @return è·å–æœåŠ¡å®ç°ç±»å¯¹åº”çš„thriftç”Ÿæˆçš„çˆ¶ç±»å¯¹è±¡class
 	 * @throws SecurityException
 	 * @throws ClassNotFoundException
 	 */
 	private static Class<?> getThriftServiceParent(Class<?> ifaceClass) throws SecurityException, ClassNotFoundException {
-		// »ñÈ¡¸¸Àà
+		// è·å–çˆ¶ç±»
 		String parentClassName = ifaceClass.getName().substring(0, ifaceClass.getName().indexOf(IFRC_NAME));
 		return Class.forName(parentClassName);
 	}

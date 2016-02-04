@@ -17,5 +17,6 @@
 
 	<context:component-scan base-package="com.upsoft.thrift">
 	</context:component-scan>
-	<bean class="com.xjkwq1qq.core.ThriftServiceApplication" />
+	<bean class="com.xjkwq1qq.core.ThriftServiceApplication" >
+	</bean>
 </beans>

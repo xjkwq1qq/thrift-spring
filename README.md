@@ -6,17 +6,16 @@
 <context:component-scan base-package="com.upsoft.thrift"></context:component-scan>  
 <bean class="com.xjkwq1qq.core.ThriftServiceApplication" />
 2）在服务实现类上添加注解@ThriftService
-如示例中所示：
+如示例中所示：<br>
 
 
-@ThriftService("HelloService")
-public class HelloServiceImpl implements HelloService.Iface {
-
-	@Override
-	public String getNode() throws TException {
-		return "HelloWorld";
-	}
-}
+@ThriftService("HelloService")<br>
+public class HelloServiceImpl implements HelloService.Iface {<br>
+	@Override<br>
+	public String getNode() throws TException {<br>
+		return "HelloWorld";<br>
+	}<br>
+}<br>
 
 服务端便启动完成
 

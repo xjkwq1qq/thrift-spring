@@ -17,12 +17,14 @@ public class NodeServiceImpl implements NodeService.Iface {
 	public Node getNode(int id) throws TException {
 		Node node = new Node();
 		node.setId(12);
-		node.setName("²âÊÔ²Ëµ¥");
+		node.setName("æµ‹è¯•èœå•");
 		List<SubNode> subNodes = new ArrayList<SubNode>();
-		subNodes.add(new SubNode(1, "²âÊÔ×Ó²Ëµ¥1", 1));
-		subNodes.add(new SubNode(2, "²âÊÔ×Ó²Ëµ¥2", 2));
+		subNodes.add(new SubNode(1, "æµ‹è¯•å­èœå•1", 1));
+		subNodes.add(new SubNode(2, "æµ‹è¯•å­èœå•2", 2));
 		node.setSubNodeList(subNodes);
-		return node;
+		return node; 
 	}
+
+	
 
 }

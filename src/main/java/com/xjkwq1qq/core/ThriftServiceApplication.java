@@ -22,6 +22,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.scheduling.annotation.Async;
 
 import com.xjkwq1qq.annotation.ThriftService;
 
@@ -74,7 +75,15 @@ public class ThriftServiceApplication implements ApplicationContextAware, Applic
 		if (LOG.isDebugEnabled()) {
 			LOG.debug("启动服务，监听端口：" + port);
 		}
-		server.serve();
+		startThrift();
+	}
+
+	public void startThrift() {
+		new Thread() {
+			public void run() {
+				server.serve();
+			};
+		}.start();
 	}
 
 	/**
@@ -82,7 +91,9 @@ public class ThriftServiceApplication implements ApplicationContextAware, Applic
 	 */
 	@Override
 	public void onApplicationEvent(ContextClosedEvent event) {
-		server.stop();
+		if (server != null) {
+			server.stop();
+		}
 	}
 
 	/**

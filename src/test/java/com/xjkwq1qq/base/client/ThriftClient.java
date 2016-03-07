@@ -18,13 +18,13 @@ public class ThriftClient {
 			transport.open();
 			TProtocol tMultiplexedProtocol = new TMultiplexedProtocol(protocol, "HelloService");
 			HelloService.Client helloServiceClient = new HelloService.Client(tMultiplexedProtocol);
-			System.out.println(helloServiceClient.getNode());
+			//System.out.println(helloServiceClient.getNode());
 			transport.close();
 
 			transport.open();
 			TProtocol tMultiplexedProtocol1 = new TMultiplexedProtocol(protocol, "NodeService");
 			NodeService.Client nodeServiceClient = new NodeService.Client(tMultiplexedProtocol1);
-			System.out.println(nodeServiceClient.getNode(1));
+			//System.out.println(nodeServiceClient.getNode(1));
 			transport.close();
 		}
 		System.out.println(System.currentTimeMillis()-begin);

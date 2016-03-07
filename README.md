@@ -19,5 +19,12 @@ public class HelloServiceImpl implements HelloService.Iface {
 	}
 }
 ```
+3)thrift服务的端口配置
+在配置文件thrift-spring.properties中设置
+```
+#port default 9090;
+thrift.port=9091
+```
+如果不设置默认是9090端口
 服务端便启动完成
 

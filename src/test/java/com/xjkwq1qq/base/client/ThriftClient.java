@@ -11,7 +11,7 @@ import com.upsoft.thrift.node.NodeService;
 
 public class ThriftClient {
 	public static void main(String[] args) throws TException {
-		TSocket transport = new TSocket("localhost", 9091);
+		TSocket transport = new TSocket("172.168.101.46", 9091);
 		TBinaryProtocol protocol = new TBinaryProtocol(transport);
 		long begin = System.currentTimeMillis();
 		for (int i = 0; i < 100; i++) {

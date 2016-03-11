@@ -10,7 +10,7 @@ import com.upsoft.thrift.node.NodeService;
 import com.upsoft.thrift.node.SubNode;
 import com.xjkwq1qq.annotation.ThriftService;
 
-@ThriftService("NodeService")
+@ThriftService
 public class NodeServiceImpl implements NodeService.Iface {
 
 	@Override

@@ -1,11 +1,13 @@
-package com.xjkwq1qq.core;
+package com.xjkwq1qq.util;
 
 import java.lang.reflect.Constructor;
 
 import org.apache.thrift.TProcessor;
 import org.springframework.util.ClassUtils;
 
-public class ThriftUtil {
+import com.xjkwq1qq.core.ThriftRuntimeException;
+
+public class ThriftServiceUtil {
 	public static final String PROCESSOR_NAME = "$Processor";
 	public static final String IFRC_NAME = "$Iface";
 
@@ -33,6 +35,27 @@ public class ThriftUtil {
 			throw new ThriftRuntimeException("the processor constructor is null");
 		}
 		return constructor.newInstance(service);
+	}
+
+	/**
+	 * 获取实际接口的类对象
+	 * 
+	 * @param inter
+	 * @return
+	 * @throws ThriftRuntimeException
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 */
+	public static Class<?> getParentClass(Class<?> inter) throws ThriftRuntimeException, SecurityException, ClassNotFoundException {
+		Class<?> ifaceClass = getThriftServiceIfaceClass(inter);
+		if (ifaceClass == null) {
+			throw new ThriftRuntimeException("the iface is null");
+		}
+		Class<?> parentClass = getThriftServiceParent(ifaceClass);
+		if (parentClass == null) {
+			throw new ThriftRuntimeException("is not thrift ServiceImpl " + inter.getName());
+		}
+		return parentClass;
 	}
 
 	/**

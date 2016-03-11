@@ -5,7 +5,7 @@ import org.apache.thrift.TException;
 import com.upsoft.thrift.hello.HelloService;
 import com.xjkwq1qq.annotation.ThriftService;
 
-@ThriftService("HelloService")
+@ThriftService
 public class HelloServiceImpl implements HelloService.Iface {
 
 	@Override

@@ -22,9 +22,10 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
-import org.springframework.scheduling.annotation.Async;
 
 import com.xjkwq1qq.annotation.ThriftService;
+import com.xjkwq1qq.util.ClassNameUtil;
+import com.xjkwq1qq.util.ThriftServiceUtil;
 
 public class ThriftServiceApplication implements ApplicationContextAware, ApplicationListener<ContextClosedEvent> {
 	public static final Logger LOG = LoggerFactory.getLogger(ThriftServiceApplication.class);
@@ -54,21 +55,18 @@ public class ThriftServiceApplication implements ApplicationContextAware, Applic
 		TMultiplexedProcessor multiplexedProcessor = new TMultiplexedProcessor();
 		server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(multiplexedProcessor));
 		for (Map.Entry<String, Object> entry : thriftServices.entrySet()) {
-			String name = entry.getKey();
 			Object value = entry.getValue();
-
 			// 获取名称
-			ThriftService thriftService = value.getClass().getAnnotation(ThriftService.class);
-			if (StringUtils.isNoneBlank(thriftService.value())) {
-				name = thriftService.value();
-			}
+			//ThriftService thriftService = value.getClass().getAnnotation(ThriftService.class);
+
 			// 获取processor
-			TProcessor processor = ThriftUtil.buildProcessor(value);
+			TProcessor processor = ThriftServiceUtil.buildProcessor(value);
 			// 注册
+			String serviceName = ClassNameUtil.getDefaultName(ThriftServiceUtil.getParentClass(value.getClass()));
 			if (LOG.isDebugEnabled()) {
-				LOG.debug("注册服务组件：" + name + "," + processor.getClass());
+				LOG.debug("注册服务组件：" + serviceName + "," + processor.getClass());
 			}
-			multiplexedProcessor.registerProcessor(name, processor);
+			multiplexedProcessor.registerProcessor(serviceName, processor);
 		}
 
 		// 启动
@@ -102,7 +100,7 @@ public class ThriftServiceApplication implements ApplicationContextAware, Applic
 	 * @return thrift启动端口
 	 * @throws IOException
 	 */
-	private int getPort() throws IOException {
+	public int getPort() throws IOException {
 		int port = 9090;
 		try {
 			Properties properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource(getConfigSource()));
